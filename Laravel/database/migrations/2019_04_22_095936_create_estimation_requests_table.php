@@ -13,7 +13,7 @@ class CreateEstimationRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::table('estimation_requests', function (Blueprint $table) {
+	Schema::create('estimation_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->dateTime('estimation_request_date');
             $table->text('estimation_request_maker_name');
@@ -22,8 +22,8 @@ class CreateEstimationRequestsTable extends Migration
             $table->text('partner_incharge_name');
             $table->date('desirable_answer_date');
             $table->timestamps();
-            $table->text('create_user');
-            $table->text('update_user');
+            $table->integer('create_user_id');
+            $table->integer('update_user_id');
         });
     }
 

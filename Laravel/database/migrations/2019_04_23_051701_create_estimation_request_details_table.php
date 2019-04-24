@@ -13,9 +13,9 @@ class CreateEstimationRequestDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::table('estimation_request_details', function (Blueprint $table) {
+        Schema::create('estimation_request_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('estimation_request_id')->unsigned();
+            $table->integer('estimation_request_id')->unsigned();
             $table->mediumInteger('catalog_id')->unsigned();
             $table->text('catalog_name');
             $table->integer('product_id')->unsigned();
@@ -23,8 +23,8 @@ class CreateEstimationRequestDetailsTable extends Migration
             $table->integer('product_quantity')->unsigned();
             $table->foreign('estimation_request_id')->references('id')->on('estimation_requests');
             $table->timestamps();
-            $table->text('create_user');
-            $table->text('update_user');
+            $table->integer('create_user_id');
+            $table->integer('update_user_id');
         });
     }
 
