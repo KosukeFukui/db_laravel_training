@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('training', 'TrainingController@index');
+Route::get('training/request', 'TrainingController@estimation_request');
