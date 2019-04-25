@@ -28,7 +28,7 @@ $factory->define(User::class, function (Faker $faker) {
  */
 $factory->define(EstimationRequest::class, function (Faker $faker) {
     return [
-        'estimation_request_date' => $faker->dateTime->format('Y-m-d'),
+        'estimation_request_date' => $faker->dateTimeBetween('-100 years', 'now')->format('Y-m-d'),
         'estimation_request_maker_name' => $faker->name,
         'partner_id' => $faker->numberBetween($min = 1, $max = 500),
         'partner_name' => $faker->company,

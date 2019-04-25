@@ -22,4 +22,8 @@ class EstimationRequest extends Model
 		'create_user_id',
 		'update_user_id',
 	];
+
+	public function estimationRequestDetails() {
+		return $this->hasMany(EstimationRequestDetail::class);
+	}
 }

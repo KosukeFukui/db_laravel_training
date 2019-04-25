@@ -20,5 +20,9 @@ class EstimationRequestDetail extends Model
 	'product_quantity',
 	'create_user_id',
 	'update_user_id',
-    ];
+];
+
+    public function estimationRequest() {
+	    return $this->belongsTo(EstimationRequest::class);
+    }   
 }

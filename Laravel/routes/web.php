@@ -13,3 +13,4 @@
 
 Route::get('training', 'TrainingController@index');
 Route::get('training/request', 'TrainingController@estimation_request');
+Route::get('training/request/{id}', 'TrainingController@estimation_request_detail');
