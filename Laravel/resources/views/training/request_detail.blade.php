@@ -8,6 +8,7 @@
     <body>
 	<h1>見積依頼詳細</h1>
 	<p>見積依頼{{ $id }}</p>
+	<button onclick="location.href='/training/request/{{ $id }}/new'">新規登録</button>
         <table>
             <tr><th>見積依頼詳細番号</th><th>カタログ番号</th><th>カタログ名</th><th>商品番号</th><th>商品名</th><th>見積数量</th></tr>
             @foreach ( $items as $item )

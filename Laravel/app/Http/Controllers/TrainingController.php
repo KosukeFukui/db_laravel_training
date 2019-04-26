@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\EstimationRequest;
 use App\EstimationRequestDetail;
 use Illuminate\Http\Request;
+//use App\Http\Requests\EstimationRequestDetailRequest;
+use Validator;
+use Illuminate\Validation\Rule;
 
 class TrainingController extends Controller
 {
@@ -20,4 +23,42 @@ class TrainingController extends Controller
 		$items = EstimationRequestDetail::where('estimation_request_id', $id)->get();
 		return view('training.request_detail', ['items' => $items, 'id' => $id]);
 	}
+	public function estimation_request_detail_new(Request $request) {
+		$id = $request->id;
+		$items = EstimationRequest::where('id', $id)->get();
+		return view('training.request_detail_new', ['items' => $items, 'id' => $id]);
+	}
+	public function estimation_request_detail_post(Request $request) {
+		$id = $request->id;
+		$rules = [
+            		'catalog_id' => 'required|integer|min: 1',
+                        'catalog_name' => 'required|alpha',
+                        'product_id' => 'required|integer|min: 1|unique:estimation_request_details,product_id,' . $this->input('id'). ',id,catalog_id,' . $this->input('catalog_id'). ',estimation_request_id,' . $this->input('{{ $id }}'),
+                        'product_name' => 'required|alpha',
+                        'product_quantity' => 'required|integer|min: 1',
+        	];
+		$messages = [
+		        'catalog_id.required' => 'カタログ番号は必ず入力してください。',
+    			'catalog_id.integer' => 'カタログ番号を整数で記入ください。',
+			'catalog_id.min' => 'カタログ番号は１以上で記入ください。',
+			'catalog_name.required' => 'カタログ名は必ず入力してください。',
+		        'catalog_name.string' => 'カタログ名はアルファベットで記入ください。',
+		        'product_id.required' => '商品番号は必ず入力してください。',
+			'product_id.integer' => '商品番号を整数で記入ください。',
+			'product_id.min' => '商品番号は１以上で記入ください。',
+			'product_name.required' => '商品名は必ず入力してください。',
+			'product_name.string' => '商品名はアルファベットで記入ください。',
+			'product_quantity.required' => '見積数量は必ず入力してください。',
+			'product_quantity.integer' => '見積数量を整数で記入ください。',
+			'product_quantity.min' => '見積数量は１以上で記入ください。',
+		];
+		$validator = Validator::make($request->all(), $rules, $messages);
+		if ($validator->fails()) {
+		    return redirect()->action('TrainingController@estimation_request_detail_new', ['id' => $id]) 
+		    ->withErrors($validator)
+		    ->withInput();
+		}
+		return view('training.request_detail_new_complete', ['msg' => '正しく登録されました！', 'id' => $id]);
+	}
+	
 }
