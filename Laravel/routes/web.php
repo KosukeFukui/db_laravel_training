@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('training', 'TrainingController@index');
+Route::get('training/request', 'TrainingController@estimation_request');
+Route::get('training/request/{id}', 'TrainingController@estimation_request_detail');
+Route::get('training/request/{id}/new', 'TrainingController@estimation_request_detail_new');
+Route::post('training/request/{id}/new', 'TrainingController@estimation_request_detail_post');
