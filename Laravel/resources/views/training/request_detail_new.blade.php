@@ -29,6 +29,9 @@
 <table>
 <form method="POST" action="/training/request/{{ $id }}/new">
 {{ csrf_field() }}
+<!--@if ($errors->has('product_id.unique'))
+<tr><th>ERROR</th><td>{{$errors->first('product_id')}}</td></tr>
+@endif--!>
 @if ($errors->has('catalog_id'))
 <tr><th>ERROR</th><td>{{$errors->first('catalog_id')}}</td></tr>
 @endif
